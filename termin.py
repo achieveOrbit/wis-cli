@@ -19,8 +19,6 @@ class Termin:
         d1 = datetime.strptime(self.datum, "%Y-%m-%d")
         return abs((datetime.now() - d1).days)
 
-    # def 
-
     def pretty_print(self):
 
         out = Output()
