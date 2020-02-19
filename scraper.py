@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 
 from config import Config
+from termin import Termin
 
 cfg = Config()
 
@@ -13,8 +14,21 @@ table = page_content.find_all(attrs={"bgcolor":"#dfe7cf"}) + page_content.find_a
 
 
 for row in table:
-    date = re.findall(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", str(row))
+    # WIS IS RETARDED, date might be out of range
+    date = re.findall(r"([0-9]{4}-[0-9]{2}-[0-9]{2}|dnes|zítra)<", str(row))
+    date_start_end = re.findall(r"([0-9]{4}-[0-9]{2}-[0-9]{2}|dnes) ([0-9]{2}:[0-9]{2}:[0-9]{2})", str(row))
     subject = str(re.findall(r"<b>[A-Z0-9]{3}</b>", str(row)))[5:8]
     term_type = str(re.findall(r"<td>\w*</td>", str(row), re.UNICODE))[6:-7]
     name = str(re.findall(r"(\">[A-Z]\w.*</a>)", str(row), re.UNICODE))[4:-6]
-    #print(date[0], " | ", subject, " | ", term_type, " | ", name, "\n")
+
+    if len(date_start_end) == 2:
+        # date to string
+        date_start = date_start_end[0][0] + " " + date_start_end[0][1]
+        date_end = date_start_end[1][0] + " " + date_start_end[1][1]
+        print(date[0], " | ", subject, " | ", term_type, " | ", name, " | ", date_start, "|", date_end)
+    elif len(date) == 1:
+        print(date[0], " | ", subject, " | ", term_type, " | ", name)
+    else:
+        print("YOURE DRUNK WIS, GO HOME")
+
+    print("--------------------------------------------------------------------------")
