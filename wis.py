@@ -9,7 +9,10 @@ if __name__ == "__main__":
     out = Output()
     options = parser.parse()
 
-    if (options.subparser_name=="terminy"):
-        print(out.style('Staram se o terminaly', color='red', form='bold'))
-    elif (options.subparser_name=="mistnosti"):
-        print(out.style('Staram se o mistnosti', color='green', form='bold'))
+    # if (options.subparser_name=="terminy"):
+    #     print(out.style('Staram se o terminaly', color='red', form='bold'))
+    # elif (options.subparser_name=="mistnosti"):
+    #     print(out.style('Staram se o mistnosti', color='green', form='bold'))
+
+    for x in range(1, 29):
+        t = Termin(("2020-02-{:02d}".format(x)), 'IPP', 'Pokusne odevzdani', 'termin', '2020-02-20', '2020-02-25')
