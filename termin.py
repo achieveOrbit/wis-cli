@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 from output import Output
 from datetime import datetime
 
@@ -20,12 +19,14 @@ class Termin:
         d1 = datetime.strptime(self.datum, "%Y-%m-%d")
         return abs((datetime.now() - d1).days)
 
+    # def 
+
     def pretty_print(self):
 
         out = Output()
 
         # Ziskani velikosti terminalu a podle toho vypocet sirky polozek
-        h, w = os.popen('stty size', 'r').read().split()
+        w = out.get_width()
         w = int(w) - 20
         datum_space   = int(w*0.20)
         predmet_space = int(w*0.0625)

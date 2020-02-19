@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+
 class Output:
 
     def __init__(self):
@@ -38,6 +40,10 @@ class Output:
             'blink'      : '5'
         }
 
+    ############################################################################
+    # FUNKCE PRO TISK                                                          #
+    ############################################################################
+
     def style(self, text, color=None, form=None, bkg=None):
 
         if (color is not None):
@@ -47,7 +53,21 @@ class Output:
         if (bkg is not None):
             text = self.CSI + self.background[bkg] + self.SGR + text
 
-        # Make sure we don't mess up the users terminal :)
+        # Vratime se do puvodniho stavu at nemame explozi barev zejo :D
         text = self.RES + text + self.RES
 
         return text
+
+    ############################################################################
+    # FUNKCE PRO ZISKANI INFORMACI O TERMINALU                                 #
+    ############################################################################
+
+    def dimensions(self):
+        h, w = os.popen('stty size', 'r').read().split()
+        return (w, h)
+
+    def get_width(self):
+        return (self.dimensions()[0])
+
+    def get_height(self):
+        return (self.dimensions()[1])
