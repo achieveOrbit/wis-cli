@@ -7,9 +7,9 @@ class Output:
     def __init__(self):
         # ESCAPE SEKVENCE
         # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
-        self.CSI = '\033['
-        self.SGR = 'm'
-        self.RES = self.CSI + '0m'
+        self.CSI = '\033['         # Delka 2
+        self.SGR = 'm'             # Delka 1
+        self.RES = self.CSI + '0m' # Delka 2+2=4
         # BARVY
         self.colors = {
             'black'   : '30',
@@ -34,10 +34,10 @@ class Output:
         }
         # FORMATY
         self.format = {
-            'bold'       : '1',
-            'italic'     : '3',
-            'underlined' : '4',
-            'blink'      : '5'
+            'bold'       : '01',
+            'italic'     : '03',
+            'underlined' : '04',
+            'blink'      : '05'
         }
 
     ############################################################################
@@ -67,7 +67,7 @@ class Output:
         return (w, h)
 
     def get_width(self):
-        return (self.dimensions()[0])
+        return int((self.dimensions()[0]))
 
     def get_height(self):
-        return (self.dimensions()[1])
+        return int((self.dimensions()[1]))

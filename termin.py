@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-from output import Output
+# Python moduly
 from datetime import datetime
+# Nase moduly <3
+from config import Config
+from output import Output
 
 class Termin:
     """ Trida reprezentujici jeden termin """
@@ -20,29 +23,35 @@ class Termin:
         return abs((datetime.now() - d1).days)
 
     def pretty_print(self):
-
+        # Objekty, ktere budeme potrebovat zejo
         out = Output()
+        con = Config()
 
         # Ziskani velikosti terminalu a podle toho vypocet sirky polozek
-        w = out.get_width()
-        w = int(w) - 20
-        datum_space   = int(w*0.20)
-        predmet_space = int(w*0.0625)
-        nazev_space   = int(w*0.4375)
-        typ_space     = int(w*0.0625)
+        w = out.get_width() - 40
+        datum_space   = int(w*0.25)
+        predmet_space = int(w*0.075)
+        nazev_space   = int(w*0.35)
+        typ_space     = int(w*0.1)
 
         # datum = out.style(self.datum, form='bold')
         td = self.time_delta()
+        settings = con.get_termin_colours()
 
         # Obarveni polozek
-        if (td >= 10):
-            datum = out.style(self.datum, form='bold', color='green')
-        elif (td < 10 and td > 5):
-            datum = out.style(self.datum, form='bold', color='yellow')
+        if (td <= settings[2]['days']):
+            datum = out.style(self.datum, form='bold', color=settings[2]['color'])
+        elif (td <= settings[1]['days']):
+            datum = out.style(self.datum, form='bold', color=settings[1]['color'])
+        elif (td <= settings[0]['days']):
+            datum = out.style(self.datum, form='bold', color=settings[0]['color'])
         else:
-            datum = out.style(self.datum, form='bold', color='red')
+            datum = out.style(self.datum, form='bold', color='white', bkg='blue') # Only for debugging
 
-        zaklad = ("|{d:^{ds}}|{p:^{ps}}|{n:^{ns}}|{t:^{ts}}|".format(d=datum,        ds=datum_space,
+        # Tohle je pocet escape sekvenci, ktere potrebujeme, aby vsechny data mely stejnou sirku :)
+        esc = len(datum)-10-8
+
+        zaklad = ("|{d:^{ds}}|{p:^{ps}}|{n:^{ns}}|{t:^{ts}}|".format(d=datum,        ds=datum_space+esc,
                                                                      p=self.predmet, ps=predmet_space,
                                                                      n=self.nazev,   ns=nazev_space,
                                                                      t=self.typ,     ts=typ_space))
