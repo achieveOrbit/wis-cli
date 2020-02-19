@@ -10,11 +10,6 @@ if __name__ == "__main__":
     options = parser.parse()
 
     if (options.subparser_name=="terminy"):
-        # print('\033[1m\033[31mStaram se o terminy')
-        print(out.style('Text1'))
-        print(out.style('Text2', color='red'))
-        print(out.style('Text3', form='bold'))
-        print(out.style('Text4', color='yellow', form='underlined'))
-        print(out.style('Text5', color='white', bkg='blue'))
+        print(out.style('Staram se o terminaly', color='red', form='bold'))
     elif (options.subparser_name=="mistnosti"):
-        print("Staram se o mistnoti")
+        print(out.style('Staram se o mistnosti', color='green', form='bold'))

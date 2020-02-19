@@ -7,7 +7,7 @@ class Output:
         # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
         self.CSI = '\033['
         self.SGR = 'm'
-        self.RES = '\033[0m'
+        self.RES = self.CSI + '0m'
         # BARVY
         self.colors = {
             'black'   : '30',
@@ -38,7 +38,7 @@ class Output:
             'blink'      : '5'
         }
 
-    def style(self, text, color=None, form=None, font=None, bkg=None):
+    def style(self, text, color=None, form=None, bkg=None):
 
         if (color is not None):
             text = self.CSI + self.colors[color] + self.SGR + text
