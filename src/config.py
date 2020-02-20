@@ -17,7 +17,6 @@ class Config:
 
     def get_termin_colours(self):
         chill = {
-            "days"  : int(self.c['TERMINY']['chill']),
             "color" : self.c['TERMINY']['chill_color']
         }
         not_chill = {
