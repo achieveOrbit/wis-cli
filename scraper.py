@@ -1,4 +1,5 @@
 #!/bin/python
+
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -7,13 +8,16 @@ from config import Config
 from termin import Termin
 
 cfg = Config()
-page = requests.get("https://wis.fit.vutbr.cz/FIT/st/news-c.php", verify=False, auth=(cfg.get_login(), cfg.get_password()))
+page = requests.get("https://wis.fit.vutbr.cz/FIT/st/news-c.php",
+                    verify=False,
+                    auth=(cfg.get_login(), cfg.get_password()))
 page_content = BeautifulSoup(page.content, "html.parser")
-table = page_content.find_all(attrs={"bgcolor":"#dfe7cf"}) + page_content.find_all(attrs={"bgcolor":"#FFF8DC"})
+table = page_content.find_all(attrs={"bgcolor":"#dfe7cf"}) +
+                              page_content.find_all(attrs={"bgcolor":"#FFF8DC"})
 
 termin_list = []
 
-print("--------------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
 for row in table:
     # WIS IS RETARDED, date might be out of range
     date = re.findall(r"([0-9]{4}-[0-9]{2}-[0-9]{2}|dnes|zítra)<", str(row))
@@ -34,6 +38,6 @@ for row in table:
         print("YOURE DRUNK WIS, GO HOME")
         exit(666)
 
-    print("--------------------------------------------------------------------------")
+    print("-------------------------------------------------------------------")
     termin = Termin(date, subject, name, term_type, date_start, date_end)
     termin_list.append(termin)
