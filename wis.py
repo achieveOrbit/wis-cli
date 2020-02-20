@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from argparser import ArgParser
-from output import Output
-from termin import Termin
+from src.argparser import ArgParser
+from src.output import Output
+from src.termin import Termin
 
 if __name__ == "__main__":
     parser  = ArgParser()

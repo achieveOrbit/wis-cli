@@ -2,10 +2,11 @@
 
 import requests
 import re
+
 from bs4 import BeautifulSoup
 
-from config import Config
-from termin import Termin
+from src.config import Config
+from src.termin import Termin
 
 cfg = Config()
 page = requests.get("https://wis.fit.vutbr.cz/FIT/st/news-c.php",

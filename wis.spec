@@ -37,4 +37,3 @@ exe = EXE(pyz,
 
 import shutil
 shutil.copyfile('config.ini', '{0}/config.ini'.format(DISTPATH))
-

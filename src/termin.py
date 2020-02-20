@@ -3,8 +3,9 @@
 # Python moduly
 from datetime import datetime
 # Nase moduly <3
-from config import Config
-from output import Output
+from src.config import Config
+from src.output import Output
+
 
 class Termin:
     """ Trida reprezentujici jeden termin """
